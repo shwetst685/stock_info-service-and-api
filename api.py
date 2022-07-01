@@ -12,10 +12,38 @@ curr_date=df["Date"][0]
 prev_date=df["Date"][1]
 
 def get_top_gainers():
-    pass
+    new_df=df[["Ticker","Close"]][0:40]
+    gainers_list=[]
+    list = []
+    for i in range(0,20):
+        change=(new_df["Close"][i]-new_df["Close"][20+i])*100/(new_df["Close"][20+i])
+        list.append(change)
+    list2=sorted(list)
+    for key,item in enumerate(list2):
+        dict_ticker={}
+        index=list.index(item)
+        dict_ticker["rank"]=key
+        dict_ticker["ticker"]=new_df["Ticker"][index]
+        dict_ticker["change"]=list[index]
 
-def get_top_loosers():
-    pass
+    return gainers_list[0:10]
+
+def get_top_losers():
+    new_df=df[["Ticker","Close"]][0:40]
+    losers_list=[]
+    list = []
+    for i in range(0,20):
+        change=(new_df["Close"][i]-new_df["Close"][20+i])*100/(new_df["Close"][20+i])
+        list.append(change)
+    list2=sorted(list,reverse=True)
+    for key,item in enumerate(list2):
+        dict_ticker={}
+        index=list.index(item)
+        dict_ticker["rank"]=key
+        dict_ticker["ticker"]=new_df["Ticker"][index]
+        dict_ticker["change"]=list[index]
+        
+    return losers_list[0:10]
 
 def weekly_reports():
     week_dict = []
@@ -39,9 +67,9 @@ class Reports(Resource):
     def get(self,report):
         if report =="get_top_gainers":
             return get_top_gainers()
-        elif report =="get_top_loosers":
+        elif report =="get_top_losers":
             return get_top_loosers()
-        elif report =="weekly_reprots":
+        elif report =="generate_weekly_reprots":
             return weekly_reports()
 
 api.add_resource(Reports, "/reports/<string:report>")
