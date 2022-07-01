@@ -18,7 +18,7 @@ def get_top_loosers():
     pass
 
 def weekly_reports():
-    week_dict = {}
+    week_dict = []
     for i in range(0,20):
         dict_ticker ={}
        
@@ -29,7 +29,7 @@ def weekly_reports():
         dict_ticker["low"]=new_df["Low"].min()
         dict_ticker["average"]=new_df["Close"].mean()
 
-        week_dict[i]=dict_ticker
+        week_dict.append(dict_ticker)
     return week_dict
 
 app = Flask(__name__)
