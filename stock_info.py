@@ -5,7 +5,7 @@ import yfinance as yf
 from datetime import  datetime,time,date
 import random
 from pathlib import Path
-from check import SMWinservice
+from windowsService import SMWinservice
 
 # function to fetch the data from yahoo finance api and store the data in sqlite local database
 def stockInfo():
